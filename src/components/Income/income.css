@@ -1,0 +1,130 @@
+.containerIncome {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+
+  h1 {
+    color: #facc15;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .tittleIncome {
+    margin-top: -10rem;
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}
+
+#formIncome {
+  background: rgba(33, 34, 34, 0.9);
+  padding: 4rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 280px;
+}
+
+#formIncome label {
+  color: #e2e8f0;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+#formIncome input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #f1f5f9;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#formIncome input:focus {
+  border-color: #facc15;
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.3);
+}
+
+#formIncome input::placeholder {
+  color: #64748b;
+}
+
+@media (max-width: 500px) {
+  #formIncome {
+    width: 90%;
+    padding: 25px;
+  }
+}
+
+.table-container {
+  width: 90%;
+  margin: 40px auto;
+  font-family: Arial, sans-serif;
+  border-top: 5px solid #ddd;
+  padding-top: 2rem;
+
+  h3 {
+    color: white;
+    margin-top: 2rem;
+  }
+
+  thead th{
+    text-align: center !important;
+  }
+}
+
+.table-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #facc15;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px rgba(249, 249, 249, 0.1);
+}
+
+.table-head {
+  background-color: #4c4b4b;
+}
+
+.table-header {
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+}
+
+.table-row {
+  background-color: #f5f5f5;
+}
+
+.table-row:hover {
+  background-color: #e0e0e0;
+}
+
+.table-cell {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+  .custom-table {
+    font-size: 14px;
+  }
+
+  .table-header,
+  .table-cell {
+    padding: 8px;
+  }
+}

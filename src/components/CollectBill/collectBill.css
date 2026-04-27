@@ -1,0 +1,149 @@
+.containerCollectBill {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+
+
+  h1{
+    color: #facc15;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .tittleCollectBill{
+    margin-top: -10rem;
+  }
+
+  button{
+    margin-top: 1rem;
+  }
+}
+
+#formPlateCollectBill {
+  background: rgba(33, 34, 34, 0.9);
+  padding: 4rem;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 280px;
+}
+
+#formPlateCollectBill label {
+  color: #e2e8f0;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+#formPlateCollectBill input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #f1f5f9;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+#formPlateCollectBill input:focus {
+  border-color: #facc15;
+  box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.3);
+}
+
+#formPlateCollectBill input::placeholder {
+  color: #64748b;
+}
+
+@media (max-width: 500px) {
+  #formPlateCollectBill {
+    width: 90%;
+    padding: 25px;
+  }
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffc107;
+}
+
+.form-container form > div {
+  margin-bottom: 15px;
+}
+
+.form-container label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-container input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  background: #2c2c2c;
+  color: #fff;
+  transition: 0.3s;
+}
+
+.form-container input[type="number"]:focus {
+  border: 1px solid #ffc107;
+}
+
+.form-container input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-container div div {
+  display: flex;
+  gap: 15px;
+}
+.form-container button {
+  width: 100%;
+  padding: 10px;
+  background: #ffc107;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-container button:hover {
+  background: #e0a800;
+  transform: scale(1.02);
+}
+
+.form-container form > div {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

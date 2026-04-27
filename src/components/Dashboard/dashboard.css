@@ -1,0 +1,24 @@
+.containerDashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.containerDashboard h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: #ffcc00;
+  letter-spacing: 1px;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+.containerDashboard p {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #cccccc;
+  max-width: 300px;
+}
