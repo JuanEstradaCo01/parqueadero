@@ -19,7 +19,9 @@ function CollectBill() {
   const [valorPolichada, setValorPolichada] = useState(0);
   const [tratamientoColor, setTratamientoColor] = useState(false);
   const [valorTratamientoColor, setValorTratamientoColor] = useState(0);
+  const [payMethod, setPayMethod] = useState("");
   const [data, setData] = useState({});
+  const [vehicle, setVehicle] = useState({});
 
   const [plate, setPlate] = useState("");
 
@@ -34,6 +36,8 @@ function CollectBill() {
     } else {
       const vehicle = vehicles.find((item) => item.plate === plate);
 
+      setVehicle(vehicle);
+
       if (vehicle) {
         const dateIn = vehicle.time;
         const dateOut = new Date().getTime();
@@ -46,7 +50,7 @@ function CollectBill() {
           dateOut,
           hourlyValue: vehicle.hourlyValue,
           hours,
-          total,
+          total
         };
 
         setData(data);
@@ -124,7 +128,16 @@ function CollectBill() {
     );
 
     pdf.setFont("helvetica", "bold");
-    pdf.text(`Total a Pagar: $${totalBill}`, 10, 90);
+    pdf.text(`Horas: ${data.hours}`, 10, 90);
+
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`Metodo de pago: ${payMethod}`, 10, 100);
+
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`Valor hora: $${vehicle.hourlyValue}`, 10, 110);
+
+    pdf.setFont("helvetica", "bold");
+    pdf.text(`Total a Pagar: $${totalBill}`, 10, 120);
 
     pdf.setFont("helvetica", "bold");
     pdf.save("factura.pdf");
@@ -353,6 +366,45 @@ function CollectBill() {
             ) : (
               <></>
             )}
+
+            <div>
+              <label>Metodo de pago</label>
+              <div>
+                <label>
+                  <input
+                    onChange={(e) => {
+                      setPayMethod(e.target.value);
+                    }}
+                    type="radio"
+                    name="payMethod"
+                    value="efectivo"
+                  />{" "}
+                  Efectivo
+                </label>
+                <label>
+                  <input
+                    onChange={(e) => {
+                      setPayMethod(e.target.value);
+                    }}
+                    type="radio"
+                    name="payMethod"
+                    value="tarjeta"
+                  />{" "}
+                  Tarjeta
+                </label>
+                <label>
+                  <input
+                    onChange={(e) => {
+                      setPayMethod(e.target.value);
+                    }}
+                    type="radio"
+                    name="payMethod"
+                    value="transferencia"
+                  />{" "}
+                  Transferencia
+                </label>
+              </div>
+            </div>
 
             <button onClick={bill} type="submit">
               Guardar
