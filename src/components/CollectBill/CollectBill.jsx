@@ -19,7 +19,7 @@ function CollectBill() {
   const [valorPolichada, setValorPolichada] = useState(0);
   const [tratamientoColor, setTratamientoColor] = useState(false);
   const [valorTratamientoColor, setValorTratamientoColor] = useState(0);
-  const [payMethod, setPayMethod] = useState("");
+  const [payMethod, setPayMethod] = useState("efectivo");
   const [data, setData] = useState({});
   const [vehicle, setVehicle] = useState({});
 
@@ -50,7 +50,7 @@ function CollectBill() {
           dateOut,
           hourlyValue: vehicle.hourlyValue,
           hours,
-          total
+          total,
         };
 
         setData(data);
@@ -80,67 +80,89 @@ function CollectBill() {
       ...billData,
     };
 
-    const totalBill = finalBillData.total + billData.valorLavada + billData.valorPulida + billData.valorEncerada + billData.valorPolichada + billData.valorTratamientoColor;
+    const totalBill =
+      finalBillData.total +
+      billData.valorLavada +
+      billData.valorPulida +
+      billData.valorEncerada +
+      billData.valorPolichada +
+      billData.valorTratamientoColor;
 
     deleteVehicle(plate);
     generatePdf(totalBill);
   };
 
   function generatePdf(totalBill) {
-    const pdf = new jsPDF();
-
     const date = new Date().toLocaleDateString();
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text("Parqueadero Santa Rosa", 70, 10);
+    const pdf = new jsPDF({ unit: "mm", format: [80, 120] });
+    const W = 80;
+    const margin = 8;
+    let y = 10;
 
     pdf.setFont("helvetica", "bold");
-    pdf.text(`Fecha: ${date}`, 10, 20);
+    pdf.setFontSize(10);
+    pdf.text("PARQUEADERO SANTA ROSA", W / 2, y, { align: "center" });
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Placa: ${plate}`, 10, 30);
+    y += 4;
+    pdf.setLineDashPattern([1, 1], 0);
+    pdf.line(margin, y, W - margin, y);
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Valor Lavada: $${valorLavada}`, 10, 40);
+    y += 6;
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(8);
+    pdf.text(`Fecha:`, margin, y);
+    pdf.text(`${date}`, W - margin, y, { align: "right" });
 
+    y += 5;
+    pdf.text(`Placa:`, margin, y);
     pdf.setFont("helvetica", "bold");
-    pdf.text(`Valor Pulida: $${pulida === true ? valorPulida : 0}`, 10, 50);
+    pdf.text(`${plate}`, W - margin, y, { align: "right" });
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(
-      `Valor Encerada: $${encerada === true ? valorEncerada : 0}`,
-      10,
-      60,
-    );
+    y += 4;
+    pdf.setLineDashPattern([1, 1], 0);
+    pdf.line(margin, y, W - margin, y);
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(
-      `Valor Polichada: $${polichada === true ? valorPolichada : 0}`,
-      10,
-      70,
-    );
+    const items = [
+      ["Valor Lavada:", `$${valorLavada}`],
+      ["Valor Pulida:", `$${pulida ? valorPulida : 0}`],
+      ["Valor Encerada:", `$${encerada ? valorEncerada : 0}`],
+      ["Valor Polichada:", `$${polichada ? valorPolichada : 0}`],
+      [
+        "Valor Trat. Color:",
+        `$${tratamientoColor ? valorTratamientoColor : 0}`,
+      ],
+      ["Horas:", `${data.hours}`],
+      ["Valor hora:", `$${vehicle.hourlyValue}`],
+      ["Metodo de pago:", `${payMethod}`],
+    ];
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(
-      `Valor Tratamiento de Color: $${tratamientoColor === true ? valorTratamientoColor : 0}`,
-      10,
-      80,
-    );
+    y += 5;
+    pdf.setFont("helvetica", "normal");
+    items.forEach(([label, value]) => {
+      pdf.text(label, margin, y);
+      pdf.text(value, W - margin, y, { align: "right" });
+      y += 5;
+    });
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Horas: ${data.hours}`, 10, 90);
+    pdf.setLineDashPattern([1, 1], 0);
+    pdf.line(margin, y, W - margin, y);
 
+    y += 5;
     pdf.setFont("helvetica", "bold");
-    pdf.text(`Metodo de pago: ${payMethod}`, 10, 100);
+    pdf.text("Total a Pagar:", margin, y);
+    pdf.text(`$${totalBill}`, W - margin, y, { align: "right" });
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Valor hora: $${vehicle.hourlyValue}`, 10, 110);
+    y += 6;
+    pdf.setLineDashPattern([1, 1], 0);
+    pdf.line(margin, y, W - margin, y);
+    y += 5;
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(7);
+    pdf.text("¡Gracias por su visita!", W / 2, y, { align: "center" });
 
-    pdf.setFont("helvetica", "bold");
-    pdf.text(`Total a Pagar: $${totalBill}`, 10, 120);
-
-    pdf.setFont("helvetica", "bold");
-    pdf.save("factura.pdf");
+    pdf.save(`recibo_${plate}.pdf`);
+    pdf.save(`Factura_${plate}.pdf`);
   }
 
   return (

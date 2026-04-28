@@ -9,14 +9,14 @@ function ParkingProvider(props){
             idTypeVehicle: 1,
             code: 101,
             name: "carro",
-            hourlyValue: 5000,
+            hourlyValue: 4000,
             creationDate: "25/06/2024"
         },
         {
             idTypeVehicle: 2,
             code: 102,
             name: "moto",
-            hourlyValue: 3000,
+            hourlyValue: 1500,
             creationDate: "25/06/2024"
         },
         {
