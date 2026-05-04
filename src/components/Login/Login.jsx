@@ -9,7 +9,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const { users } = useContext(parkingContext);
+  const { users, addSession } = useContext(parkingContext);
 
   const signIn = async (evt) => {
     evt.preventDefault();
@@ -21,14 +21,16 @@ function Login() {
 
     document.getElementById("login-form").reset();
 
+    // Buscar el usuario en el contexto
     const user = users.find((u) => u.username === username);
 
     if (user) {
       if (user.password === password) {
         alert("¡Inicio de sesión exitoso! Bienvenido " + username);
+        addSession(user);
         navigate("/dashboard");
       } else {
-        alert("Contraseña incorrecta.");
+        alert("Contraseña incorrecta");
       }
     } else {
       alert("El usuario no existe.");

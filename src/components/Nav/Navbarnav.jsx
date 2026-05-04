@@ -5,8 +5,18 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import { FaUserAlt } from "react-icons/fa";
+import { useContext } from "react";
+import { parkingContext } from "../../context/context";
 
 function Navbarnav() {
+
+    const { session, logOut } = useContext(parkingContext);
+
+    function logOutUser(){
+      logOut();
+    }
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -23,24 +33,18 @@ function Navbarnav() {
               Salida
             </Nav.Link>
 
-            <Nav.Link as={Link} to="/bancos">
-              Bancos
-            </Nav.Link>
-
-            <Nav.Link as={Link} to="/productos">
-              Productos
-            </Nav.Link>
-
-            <Nav.Link as={Link} to="/servicios">
-              Servicios
-            </Nav.Link>
-
             <Nav.Link as={Link} to="/clientes">
               Clientes
             </Nav.Link>
 
+            {session[0].username === "admin" ? <Nav.Link as={Link} to="/admin">
+              <FaUserAlt />
+            </Nav.Link> : null}
+
             <Nav.Link as={Link} to="/login">
-              <Button variant="danger">Salir</Button>
+              <Button variant="danger" onClick={logOutUser}>
+                Salir
+              </Button>
             </Nav.Link>
           </Nav>
         </Container>

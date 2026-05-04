@@ -16,7 +16,7 @@ function NotFoundPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
 export default NotFoundPage;

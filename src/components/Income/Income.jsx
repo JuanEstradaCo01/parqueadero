@@ -13,11 +13,13 @@ function Income() {
     evt.preventDefault();
 
     document.getElementById("formIncome").reset();
+    setPlate("");
 
     if (typeVehicle === "" || plate === "") {
       alert("Completa todos los campos");
       return;
     } else {
+
       const type = typeVehicles.find((item) => item.name === typeVehicle);
 
       let data = {
@@ -81,8 +83,9 @@ function Income() {
             id="placa"
             placeholder="Ingresa la placa"
             required
+            value={plate}
             onChange={(e) => {
-              setPlate(e.target.value);
+              setPlate(e.target.value.toUpperCase())
             }}
           />
 

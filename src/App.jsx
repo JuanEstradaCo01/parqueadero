@@ -8,10 +8,12 @@ import LoadPage from './components/LoadPage/LoadPage.jsx';
 import Dashboard from './components/Dashboard/Dashboard.jsx';
 import Income from './components/Income/Income.jsx';
 import CollectBill from './components/CollectBill/CollectBill.jsx';
-import Banks from './components/Banks/Banks.jsx';
-import Products from './components/Products/Products.jsx';
-import Services from './components/Services/Services.jsx';
 import Customers from './components/Customer/Customers.jsx';
+import Admin from './components/Admin/Admin.jsx';
+import AddUser from './components/Admin/AddUser/AddUser.jsx';
+import EditUser from './components/Admin/EditUser/EditUser.jsx';
+import DeleteUser from './components/Admin/DeleteUser/DeleteUser.jsx';
+import EditUserId from './components/Admin/EditUser/EditUserId/EditUserId.jsx';
 import NotFoundPage from './components/404/404NotFound.jsx';
 
 function App() {
@@ -28,10 +30,12 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/ingreso" element={<Income />} />
             <Route path="/salida" element={<CollectBill />} />
-            <Route path="/bancos" element={<Banks />} />
-            <Route path="/productos" element={<Products />} />
-            <Route path="/servicios" element={<Services />} />
             <Route path="/clientes" element={<Customers />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/agregar" element={<AddUser />} />
+            <Route path="/admin/editar" element={<EditUser />} />
+            <Route path="/admin/editarusuario/:id" element={<EditUserId />} />
+            <Route path="/admin/eliminar" element={<DeleteUser />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
