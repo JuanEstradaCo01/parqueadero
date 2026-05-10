@@ -195,6 +195,14 @@ function ParkingProvider(props) {
     )
   }
 
+  function editCustomerId(updatedCustomer) {
+    setCustomers((prevCustomers) =>
+      prevCustomers.map(customer =>
+        customer.idCustomer === updatedCustomer.idCustomer ? updatedCustomer : customer
+      )
+    )
+  }
+
   function addCustomer(customer) {
     setCustomers([...customers, customer]);
   }
@@ -232,6 +240,15 @@ function ParkingProvider(props) {
     setUsers(copy)
   }
 
+  function deleteCustomer(idCustomer) {
+    const customer = customers.find((item) => item.idCustomer === idCustomer)
+
+    const index = customers.findIndex((item) => item.idCustomer === idCustomer)
+    let copy = [...customers]
+    copy.splice(index, 1)
+    setCustomers(copy)
+  }
+
   return (
     <Provider
       value={{
@@ -251,7 +268,9 @@ function ParkingProvider(props) {
         addSession,
         logOut,
         editUserId,
-        deleteUser
+        deleteUser,
+        deleteCustomer,
+        editCustomerId
       }}
     >
       {props.children}

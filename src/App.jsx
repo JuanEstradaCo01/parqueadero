@@ -14,6 +14,7 @@ import AddUser from './components/Admin/AddUser/AddUser.jsx';
 import EditUser from './components/Admin/EditUser/EditUser.jsx';
 import DeleteUser from './components/Admin/DeleteUser/DeleteUser.jsx';
 import EditUserId from './components/Admin/EditUser/EditUserId/EditUserId.jsx';
+import EditCustomer from './components/Customer/EditCustomer/EditCustomer.jsx';
 import NotFoundPage from './components/404/404NotFound.jsx';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
             <Route path="/admin/agregar" element={<AddUser />} />
             <Route path="/admin/editar" element={<EditUser />} />
             <Route path="/admin/editarusuario/:id" element={<EditUserId />} />
+            <Route path="/admin/editarcliente/:id" element={<EditCustomer />} />
             <Route path="/admin/eliminar" element={<DeleteUser />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

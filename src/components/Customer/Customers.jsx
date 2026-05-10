@@ -3,6 +3,7 @@ import Navbarnav from "../Nav/Navbarnav";
 import Button from "react-bootstrap/Button";
 import { useState, useContext } from "react";
 import { parkingContext } from "../../context/context";
+import { useNavigate } from "react-router-dom";
 
 function Customers() {
   const [customerPlate, setCustomerPlate] = useState("");
@@ -13,10 +14,14 @@ function Customers() {
   const [customerName, setCustomerName] = useState("");
   const [priceMonthly, setPriceMonthly] = useState("");
 
-  const { customers, addCustomer } = useContext(parkingContext);
+  const { customers, addCustomer, deleteCustomer } = useContext(parkingContext);
+
+  const navigate = useNavigate();
 
   const customerAdded = async (evt) => {
     evt.preventDefault();
+
+    document.getElementById("formCustomer").reset();
 
     if (customerName === "") {
       alert("Completa todos los campos");
@@ -34,9 +39,14 @@ function Customers() {
       priceMonthly,
     };
 
-    addCustomer(data);
-    document.getElementById("formCustomer").reset();
+    addCustomer(data)
+    setCustomerPlate("");
+    alert("¡Cliente agregado exitosamente!");
   };
+
+  function deleteUserMontly(id) {
+    deleteCustomer(id);
+  }
 
   return (
     <>
@@ -50,6 +60,7 @@ function Customers() {
             placeholder="Nombre del cliente"
             name="placa"
             type="text"
+            required
             onChange={(e) => setCustomerName(e.target.value)}
           />
 
@@ -58,7 +69,9 @@ function Customers() {
             placeholder="Placa del vehículo"
             name="placa"
             type="text"
-            onChange={(e) => setCustomerPlate(e.target.value)}
+            value={customerPlate}
+            required
+            onChange={(e) => setCustomerPlate(e.target.value.toUpperCase())}
           />
 
           <label htmlFor="tipoPago">Tipo de vehículo</label>
@@ -66,6 +79,7 @@ function Customers() {
             onChange={(e) => setTypeVehicle(e.target.value)}
             id="tipoPago"
             name="tipoPago"
+            required
           >
             <option value="">Seleccione una opción</option>
             <option value="carro">carro</option>
@@ -78,6 +92,7 @@ function Customers() {
             onChange={(e) => setContract(e.target.value)}
             id="tipoPago"
             name="tipoPago"
+            required
           >
             <option value="">Seleccione una opción</option>
             <option value="mensualidad">mensualidad</option>
@@ -89,6 +104,7 @@ function Customers() {
             placeholder="Número de tarjeta de propiedad"
             name="placa"
             type="text"
+            required
             onChange={(e) => setOwnerCard(e.target.value)}
           />
 
@@ -97,14 +113,16 @@ function Customers() {
             placeholder="Número de identificación del cliente"
             name="placa"
             type="text"
+            required
             onChange={(e) => setIdentification(e.target.value)}
           />
 
-          <label htmlFor="placa">Precio mensualidad</label>
+          <label htmlFor="placa">Precio</label>
           <input
-            placeholder="Precio de la mensualidad"
+            placeholder="Precio"
             name="placa"
             type="text"
+            required
             onChange={(e) => setPriceMonthly(e.target.value)}
           />
 
@@ -130,7 +148,9 @@ function Customers() {
                     <th className="table-header">Tarje. propiedad</th>
                     <th className="table-header">Identificación</th>
                     <th className="table-header">Nombre</th>
-                    <th className="table-header">Precio</th>
+                    <th className="table-header">Precio mes</th>
+                    <th className="table-header">Editar</th>
+                    <th className="table-header">Eliminar</th>
                   </tr>
                 </thead>
 
@@ -144,7 +164,18 @@ function Customers() {
                       <td className="table-cell">{item.ownerCard}</td>
                       <td className="table-cell">{item.identification}</td>
                       <td className="table-cell">{item.name}</td>
-                      <td className="table-cell">{item.priceMonthly}</td>
+                      <td className="table-cell">${item.priceMonthly}</td>
+                      <td>
+                        <button onClick={() => navigate(`/admin/editarcliente/${item.idCustomer}`)} className="btn btn-primary">Editar</button>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => deleteUserMontly(item.idCustomer)}
+                          className="btn btn-danger"
+                        >
+                          Eliminar
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
