@@ -19,16 +19,16 @@ function Income() {
       alert("Completa todos los campos");
       return;
     } else {
-
       const type = typeVehicles.find((item) => item.name === typeVehicle);
 
       let data = {
+        idVehicle: vehicles.length + 1,
         idTypeVehicle: 0,
         typeVehicle: "",
         plate: plate,
         hourlyValue: 0,
         date: new Date().toLocaleString(),
-        time: new Date().getTime()
+        time: new Date().getTime(),
       };
 
       if (type) {
@@ -47,6 +47,19 @@ function Income() {
         }
       } else {
         alert("El tipo de vehiculo no existe");
+      }
+
+      const findVehicle = vehicles.find((item) => item.idVehicle === data.idVehicle);
+
+      if (findVehicle) {
+        data.idVehicle += 1
+      }
+
+      const findPlate = vehicles.find((item) => item.plate === data.plate);
+
+      if (findPlate) {
+        alert("¡La placa ya se encuentra registrada en el parqueadero!");
+        return;
       }
 
       addVehicle(data);
@@ -85,7 +98,7 @@ function Income() {
             required
             value={plate}
             onChange={(e) => {
-              setPlate(e.target.value.toUpperCase())
+              setPlate(e.target.value.toUpperCase());
             }}
           />
 
@@ -119,7 +132,7 @@ function Income() {
                 <tbody className="table-body">
                   {vehicles.map((item) => (
                     <tr className="table-row" key={item.plate}>
-                      <td className="table-cell">{item.idTypeVehicle}</td>
+                      <td className="table-cell">{item.idVehicle}</td>
                       <td className="table-cell">{item.typeVehicle}</td>
                       <td className="table-cell">{item.plate}</td>
                       <td className="table-cell">${item.hourlyValue}</td>

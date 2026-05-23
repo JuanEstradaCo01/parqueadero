@@ -72,7 +72,7 @@ function ParkingProvider(props) {
       email: "admin@example.com",
       fechaCreacion: "02/05/2026",
       password: "123",
-    }
+    },
   ]);
   const [vehicles, setVehicles] = useState([]);
   const [products, setProducts] = useState([
@@ -181,7 +181,10 @@ function ParkingProvider(props) {
       price: 40000,
     },
   ]);
+
   const [session, setSession] = useState([]);
+
+  const [bills, setBills] = useState([]);
 
   function addUser(user) {
     setUsers([...users, user]);
@@ -189,18 +192,20 @@ function ParkingProvider(props) {
 
   function editUserId(updatedUser) {
     setUsers((prevUsers) =>
-      prevUsers.map(user =>
-        user.idCajero === updatedUser.idCajero ? updatedUser : user
-      )
-    )
+      prevUsers.map((user) =>
+        user.idCajero === updatedUser.idCajero ? updatedUser : user,
+      ),
+    );
   }
 
   function editCustomerId(updatedCustomer) {
     setCustomers((prevCustomers) =>
-      prevCustomers.map(customer =>
-        customer.idCustomer === updatedCustomer.idCustomer ? updatedCustomer : customer
-      )
-    )
+      prevCustomers.map((customer) =>
+        customer.idCustomer === updatedCustomer.idCustomer
+          ? updatedCustomer
+          : customer,
+      ),
+    );
   }
 
   function addCustomer(customer) {
@@ -216,7 +221,11 @@ function ParkingProvider(props) {
   }
 
   function logOut() {
-    setSession([]);
+    saveUsers()
+    saveCustomers()
+    saveBills()
+    saveVehicles()
+    setSession([])
   }
 
   function deleteVehicle(plate) {
@@ -231,22 +240,110 @@ function ParkingProvider(props) {
     setVehicles(copy);
   }
 
-  function deleteUser(id){
-    const user = users.find((item) => item.idCajero === id)
+  function deleteUser(id) {
+    const user = users.find((item) => item.idCajero === id);
 
-    const index = users.findIndex((item) => item.idCajero === id)
-    let copy = [...users]
-    copy.splice(index, 1)
-    setUsers(copy)
+    const index = users.findIndex((item) => item.idCajero === id);
+    let copy = [...users];
+    copy.splice(index, 1);
+    setUsers(copy);
   }
 
   function deleteCustomer(idCustomer) {
-    const customer = customers.find((item) => item.idCustomer === idCustomer)
+    const customer = customers.find((item) => item.idCustomer === idCustomer);
 
-    const index = customers.findIndex((item) => item.idCustomer === idCustomer)
-    let copy = [...customers]
-    copy.splice(index, 1)
-    setCustomers(copy)
+    const index = customers.findIndex((item) => item.idCustomer === idCustomer);
+    let copy = [...customers];
+    copy.splice(index, 1);
+    setCustomers(copy);
+  }
+
+  function addBill(bill) {
+    setBills([...bills, bill]);
+  }
+
+  function saveUsers() {
+    // Crear blob
+    const archivo = new Blob([JSON.stringify(users, null, 2)], {
+      type: "text/plain",
+    });
+
+    // Crear URL temporal
+    const url = URL.createObjectURL(archivo);
+
+    // Crear enlace de descarga
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = "usuarios-" + new Date().toLocaleDateString() + ".txt";
+
+    // Simular click
+    enlace.click();
+
+    // Liberar memoria
+    URL.revokeObjectURL(url);
+  }
+
+  function saveVehicles() {
+    // Crear blob
+    const archivo = new Blob([JSON.stringify(vehicles, null, 2)], {
+      type: "text/plain",
+    });
+
+    // Crear URL temporal
+    const url = URL.createObjectURL(archivo);
+
+    // Crear enlace de descarga
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = "vehiculos-" + new Date().toLocaleTimeString() + "-" + new Date().toLocaleDateString() + ".txt";
+
+    // Simular click
+    enlace.click();
+
+    // Liberar memoria
+    URL.revokeObjectURL(url);
+  }
+
+  function saveCustomers() {
+    // Crear blob
+    const archivo = new Blob([JSON.stringify(customers, null, 2)], {
+      type: "text/plain",
+    });
+
+    // Crear URL temporal
+    const url = URL.createObjectURL(archivo);
+
+    // Crear enlace de descarga
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = "clientes-" + new Date().toLocaleDateString() + ".txt";
+
+    // Simular click
+    enlace.click();
+
+    // Liberar memoria
+    URL.revokeObjectURL(url);
+  }
+
+  function saveBills() {
+    // Crear blob
+    const archivo = new Blob([JSON.stringify(bills, null, 2)], {
+      type: "text/plain",
+    });
+
+    // Crear URL temporal
+    const url = URL.createObjectURL(archivo);
+
+    // Crear enlace de descarga
+    const enlace = document.createElement("a");
+    enlace.href = url;
+    enlace.download = "facturas-" + new Date().toLocaleDateString() + ".txt";
+
+    // Simular click
+    enlace.click();
+
+    // Liberar memoria
+    URL.revokeObjectURL(url);
   }
 
   return (
@@ -270,7 +367,8 @@ function ParkingProvider(props) {
         editUserId,
         deleteUser,
         deleteCustomer,
-        editCustomerId
+        editCustomerId,
+        addBill,
       }}
     >
       {props.children}

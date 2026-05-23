@@ -39,6 +39,12 @@ function Customers() {
       priceMonthly,
     };
 
+    const findCustomer = customers.find(item => item.idCustomer === data.idCustomer)
+
+    if(findCustomer){
+      data.idCustomer += 1
+    }
+
     addCustomer(data)
     setCustomerPlate("");
     alert("¡Cliente agregado exitosamente!");

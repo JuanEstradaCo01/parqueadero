@@ -6,7 +6,7 @@ import { parkingContext } from "../../context/context";
 import jsPDF from "jspdf";
 
 function CollectBill() {
-  const { vehicles, deleteVehicle } = useContext(parkingContext);
+  const { vehicles, deleteVehicle, addBill } = useContext(parkingContext);
 
   const [existPlate, setExistPlate] = useState(false);
   const [lavada, setLavada] = useState(false);
@@ -89,6 +89,7 @@ function CollectBill() {
       billData.valorTratamientoColor;
 
     deleteVehicle(plate);
+    addBill(totalBill);
     generatePdf(totalBill);
   };
 
@@ -112,7 +113,7 @@ function CollectBill() {
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(8);
     pdf.text(`Fecha:`, margin, y);
-    pdf.text(`${date}`, W - margin, y, { align: "right" });
+    pdf.text(`${date} ${new Date().toLocaleTimeString()}`, W - margin, y, { align: "right" });
 
     y += 5;
     pdf.text(`Placa:`, margin, y);
@@ -161,7 +162,6 @@ function CollectBill() {
     pdf.setFontSize(7);
     pdf.text("¡Gracias por su visita!", W / 2, y, { align: "center" });
 
-    pdf.save(`recibo_${plate}.pdf`);
     pdf.save(`Factura_${plate}.pdf`);
   }
 
@@ -175,10 +175,12 @@ function CollectBill() {
           <label htmlFor="placa">Placa</label>
           <input
             onChange={(e) => {
-              setPlate(e.target.value);
+              setPlate(e.target.value.toUpperCase())
             }}
             placeholder="Placa del vehículo"
             name="placa"
+            value={plate}
+            required
             type="text"
           />
           <Button onClick={capturingPlate} variant="outline-warning">
