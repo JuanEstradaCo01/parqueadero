@@ -78,6 +78,7 @@ function CollectBill() {
     const finalBillData = {
       ...data,
       ...billData,
+      plate
     };
 
     const totalBill =
@@ -86,10 +87,10 @@ function CollectBill() {
       billData.valorPulida +
       billData.valorEncerada +
       billData.valorPolichada +
-      billData.valorTratamientoColor;
+      billData.valorTratamientoColor
 
     deleteVehicle(plate);
-    addBill(totalBill);
+    addBill(finalBillData);
     generatePdf(totalBill);
   };
 
