@@ -26,7 +26,7 @@ function ParkingProvider(props) {
       hourlyValue: 6000,
       creationDate: "25/06/2024",
     },
-  ]);
+  ])
   const [payMethods, setPayMethods] = useState([
     {
       idFormaPago: 1,
@@ -43,7 +43,7 @@ function ParkingProvider(props) {
       code: 203,
       name: "Transferencia bancaria",
     },
-  ]);
+  ])
   const [banks, setBanks] = useState([
     {
       idBank: 1,
@@ -60,7 +60,7 @@ function ParkingProvider(props) {
       code: 303,
       name: "Banco Popular",
     },
-  ]);
+  ])
   const [customers, setCustomers] = useState([]);
   const [users, setUsers] = useState([
     {
@@ -73,7 +73,7 @@ function ParkingProvider(props) {
       fechaCreacion: "02/05/2026",
       password: "123",
     },
-  ]);
+  ])
   const [vehicles, setVehicles] = useState([]);
   const [products, setProducts] = useState([
     {
@@ -106,7 +106,7 @@ function ParkingProvider(props) {
       name: "Limpiador de llantas",
       price: 12000,
     },
-  ]);
+  ])
   const [services, setServices] = useState([
     {
       idService: 1,
@@ -180,7 +180,7 @@ function ParkingProvider(props) {
       name: "Cambio de aceite Moto",
       price: 40000,
     },
-  ]);
+  ])
 
   const [session, setSession] = useState([]);
 
@@ -214,6 +214,10 @@ function ParkingProvider(props) {
 
   function addVehicle(vehicle) {
     setVehicles([...vehicles, vehicle]);
+  }
+
+  function loadVehicles(vehicles) {
+    setVehicles(vehicles);
   }
 
   function addSession(user) {
@@ -274,13 +278,17 @@ function ParkingProvider(props) {
     // Crear enlace de descarga
     const enlace = document.createElement("a");
     enlace.href = url;
-    enlace.download = "usuarios-" + new Date().toLocaleDateString() + ".txt";
+    enlace.download = "usuarios.txt";
 
     // Simular click
     enlace.click();
 
     // Liberar memoria
     URL.revokeObjectURL(url);
+  }
+
+  function loadUsers(users) {
+    setUsers(users);
   }
 
   function saveVehicles() {
@@ -295,7 +303,7 @@ function ParkingProvider(props) {
     // Crear enlace de descarga
     const enlace = document.createElement("a");
     enlace.href = url;
-    enlace.download = "vehiculos-" + new Date().toLocaleTimeString() + "-" + new Date().toLocaleDateString() + ".txt";
+    enlace.download = "vehiculos.txt";
 
     // Simular click
     enlace.click();
@@ -316,13 +324,17 @@ function ParkingProvider(props) {
     // Crear enlace de descarga
     const enlace = document.createElement("a");
     enlace.href = url;
-    enlace.download = "clientes-" + new Date().toLocaleDateString() + ".txt";
+    enlace.download = "clientes.txt";
 
     // Simular click
     enlace.click();
 
     // Liberar memoria
     URL.revokeObjectURL(url);
+  }
+
+  function loadCustomers(customers) {
+    setCustomers(customers);
   }
 
   function saveBills() {
@@ -369,6 +381,9 @@ function ParkingProvider(props) {
         deleteCustomer,
         editCustomerId,
         addBill,
+        loadVehicles,
+        loadUsers,
+        loadCustomers
       }}
     >
       {props.children}

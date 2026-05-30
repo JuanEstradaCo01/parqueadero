@@ -9,10 +9,28 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
-  const { users, addSession } = useContext(parkingContext);
+  const { users, vehicles , loadVehicles , loadUsers, loadCustomers, addSession } = useContext(parkingContext);
 
   const signIn = async (evt) => {
     evt.preventDefault();
+
+   //Cargo los backups de los vehiculos, usuarios y clientes
+    const responseVehicles = await fetch('/backups/vehiculos.txt')
+    const contentVehicles = await responseVehicles.text()
+    const objectVehicles = JSON.parse(contentVehicles)
+    loadVehicles(objectVehicles)
+
+    //Usuarios
+    const responseUsers = await fetch('/backups/usuarios.txt')
+    const contentUsers = await responseUsers.text()
+    const objectUsers = JSON.parse(contentUsers)
+    loadUsers(objectUsers)
+
+    //Clientes
+    const responseCustomers = await fetch('/backups/clientes.txt')
+    const contentCustomers = await responseCustomers.text()
+    const objectCustomers = JSON.parse(contentCustomers)
+    loadCustomers(objectCustomers)
 
     if (username === "" || password === "") {
       alert("Completa todos los campos");

@@ -15,7 +15,7 @@ function EditUser() {
   return (
     <>
       <Navbarnav />
-      {users.length <= 1 ? (
+      {users.length === 0 ? (
         <>
           <h1 className="h1">Editar usuarios</h1>
           <h3 className="h3">¡No hay usuarios en el sistema!</h3>
