@@ -4,7 +4,9 @@ import Button from "react-bootstrap/Button";
 import { useState, useContext } from "react";
 import { parkingContext } from "../../context/context.jsx";
 
+//Componente que permite registrar nuevos usuarios al sistema
 function Register() {
+  //Navegacion
   const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -12,11 +14,14 @@ function Register() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
 
+  //Context
   let { users, addUser } = useContext(parkingContext);
 
+  //Funcion que maneja el registro de nuevos usuarios al sistema
   const register = async (evt) => {
     evt.preventDefault();
 
+    //Validacio de campos vacios
     if (
       username === "" ||
       password === "" ||
@@ -30,6 +35,7 @@ function Register() {
 
     document.getElementById("registro-form").reset();
 
+    //Formateo del objeto usuario a agregar
     const user = {
       idCajero: users.length + 1,
       identificacion: id,

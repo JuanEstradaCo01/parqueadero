@@ -1,6 +1,7 @@
 import "./home.css";
 import { Link } from "react-router-dom";
 
+//Componente que se muestra al iniciar la aplicación, es la pantalla de bienvenida del sistema del parqueadero
 function Home() {
   return (
     <>

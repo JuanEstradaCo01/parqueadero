@@ -1,6 +1,7 @@
 import "./loadpage.css";
 import { useNavigate } from "react-router-dom";
 
+//Componente que simula una pagina de carga
 function LoadPage() {
   const navigate = useNavigate();
 

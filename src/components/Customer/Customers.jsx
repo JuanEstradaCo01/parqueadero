@@ -5,7 +5,9 @@ import { useState, useContext } from "react";
 import { parkingContext } from "../../context/context";
 import { useNavigate } from "react-router-dom";
 
+//Componente que permite agregar, editar y eliminar clientes desde el administrador
 function Customers() {
+  //Variables
   const [customerPlate, setCustomerPlate] = useState("");
   const [typeVehicle, setTypeVehicle] = useState("");
   const [contract, setContract] = useState("");
@@ -18,16 +20,19 @@ function Customers() {
 
   const navigate = useNavigate();
 
+  //Funcion que agrega un cliente
   const customerAdded = async (evt) => {
     evt.preventDefault();
 
     document.getElementById("formCustomer").reset();
 
+    //Validacion de campos vacios
     if (customerName === "") {
       alert("Completa todos los campos");
       return;
     }
 
+    //Formateo del objeto cliente a agregar
     let data = {
       idCustomer: customers.length + 1,
       plate: customerPlate,

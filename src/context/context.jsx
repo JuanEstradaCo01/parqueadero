@@ -3,7 +3,10 @@ import React, { createContext, useState } from "react";
 const parkingContext = createContext({ parking: [] });
 const Provider = parkingContext.Provider;
 
+//Componente que maneja el estado global del sistema, donde se almacenan los datos de los usuarios, clientes, vehículos, productos, servicios, facturas y sesiones
 function ParkingProvider(props) {
+  //Estados globales del sistema (context)
+  //Array tipos de vehiculos
   const [typeVehicles, setTypeVehicles] = useState([
     {
       idTypeVehicle: 1,
@@ -27,6 +30,7 @@ function ParkingProvider(props) {
       creationDate: "25/06/2024",
     },
   ])
+  //Array formas de pago
   const [payMethods, setPayMethods] = useState([
     {
       idFormaPago: 1,
@@ -44,6 +48,7 @@ function ParkingProvider(props) {
       name: "Transferencia bancaria",
     },
   ])
+  //Array bancos
   const [banks, setBanks] = useState([
     {
       idBank: 1,
@@ -61,7 +66,9 @@ function ParkingProvider(props) {
       name: "Banco Popular",
     },
   ])
+  //Array clientes
   const [customers, setCustomers] = useState([]);
+  //Array usuarios
   const [users, setUsers] = useState([
     {
       idCajero: 1,
@@ -74,7 +81,9 @@ function ParkingProvider(props) {
       password: "123",
     },
   ])
+  //Array vehiculos
   const [vehicles, setVehicles] = useState([]);
+  //Array productos
   const [products, setProducts] = useState([
     {
       idProduct: 1,
@@ -107,6 +116,7 @@ function ParkingProvider(props) {
       price: 12000,
     },
   ])
+  //Array servicios
   const [services, setServices] = useState([
     {
       idService: 1,
@@ -181,15 +191,16 @@ function ParkingProvider(props) {
       price: 40000,
     },
   ])
-
+  //Array sesiones
   const [session, setSession] = useState([]);
-
+  //Array facturas
   const [bills, setBills] = useState([]);
 
+  //Funcion para agregar un usuario
   function addUser(user) {
     setUsers([...users, user]);
   }
-
+  //Funcion para editar un usuario
   function editUserId(updatedUser) {
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
@@ -197,7 +208,7 @@ function ParkingProvider(props) {
       ),
     );
   }
-
+  //Funcion para editar un cliente
   function editCustomerId(updatedCustomer) {
     setCustomers((prevCustomers) =>
       prevCustomers.map((customer) =>
@@ -207,23 +218,24 @@ function ParkingProvider(props) {
       ),
     );
   }
-
+  //Funcion para agregar un cliente
   function addCustomer(customer) {
     setCustomers([...customers, customer]);
   }
-
+  //Funcion para agregar un vehículo
   function addVehicle(vehicle) {
     setVehicles([...vehicles, vehicle]);
   }
-
+  //Funcion para cargar los vehículos desde un archivo .txt
   function loadVehicles(vehicles) {
     setVehicles(vehicles);
   }
-
+  //Funcion para agregar la sesión del usuario que ha iniciado
   function addSession(user) {
     setSession([...session, user]);
   }
 
+  //Funcion que maneja el cierre de sesión de los usuarios, guardando los datos actuales de usuarios, clientes, vehículos y facturas en archivos .txt
   function logOut() {
     saveUsers()
     saveCustomers()
@@ -232,6 +244,7 @@ function ParkingProvider(props) {
     setSession([])
   }
 
+  //Funcion que elimina un vehículo por su placa
   function deleteVehicle(plate) {
     const vehicle = vehicles.find((item) => item.plate === plate);
     if (!vehicle) {
@@ -244,6 +257,7 @@ function ParkingProvider(props) {
     setVehicles(copy);
   }
 
+  //Funcion que elimina un usuario por su id
   function deleteUser(id) {
     const user = users.find((item) => item.idCajero === id);
 
@@ -253,6 +267,7 @@ function ParkingProvider(props) {
     setUsers(copy);
   }
 
+  //Funcion que elimina un cliente por su id
   function deleteCustomer(idCustomer) {
     const customer = customers.find((item) => item.idCustomer === idCustomer);
 
@@ -262,10 +277,12 @@ function ParkingProvider(props) {
     setCustomers(copy);
   }
 
+  //Funcion que agrega una factura al array de facturas
   function addBill(bill) {
     setBills([...bills, bill]);
   }
 
+  //Funciones para guardar los datos actuales de usuarios en un archivo .txt al cerrar sesión
   function saveUsers() {
     // Crear blob
     const archivo = new Blob([JSON.stringify(users, null, 2)], {
@@ -287,10 +304,12 @@ function ParkingProvider(props) {
     URL.revokeObjectURL(url);
   }
 
+  //Funcion para cargar los usuarios desde un archivo .txt
   function loadUsers(users) {
     setUsers(users);
   }
 
+  //Funcion para guardar los datos actuales de vehículos en un archivo .txt al cerrar sesión
   function saveVehicles() {
     // Crear blob
     const archivo = new Blob([JSON.stringify(vehicles, null, 2)], {
@@ -312,6 +331,7 @@ function ParkingProvider(props) {
     URL.revokeObjectURL(url);
   }
 
+  //Funcion para guardar los datos actuales de clientes en un archivo .txt al cerrar sesión
   function saveCustomers() {
     // Crear blob
     const archivo = new Blob([JSON.stringify(customers, null, 2)], {
@@ -333,10 +353,12 @@ function ParkingProvider(props) {
     URL.revokeObjectURL(url);
   }
 
+  //Funcion para cargar los clientes desde un archivo .txt
   function loadCustomers(customers) {
     setCustomers(customers);
   }
 
+  //Funcion para guardar los datos actuales de facturas generadas en un archivo .txt al cerrar sesión
   function saveBills() {
     // Crear blob
     const archivo = new Blob([JSON.stringify(bills, null, 2)], {
@@ -358,6 +380,7 @@ function ParkingProvider(props) {
     URL.revokeObjectURL(url);
   }
 
+  //Exportacuion del contexto, donde se pasan las variables y funciones que se van a utilizar en los componentes hijos del proveedor
   return (
     <Provider
       value={{

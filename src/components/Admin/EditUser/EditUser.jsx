@@ -4,10 +4,12 @@ import { useState, useContext } from "react";
 import { parkingContext } from "../../..//context/context";
 import { useNavigate } from "react-router-dom";
 
+//Componente que permite editar un usuario desde el administrador
 function EditUser() {
   const { users } = useContext(parkingContext);
   const navigate = useNavigate();
 
+  //Funcion que redirige a la pagina de edicion de usuario, pasando el id del usuario a editar por la url
   function editUser(id) {
     navigate(`/admin/editarusuario/${id}`)
   }

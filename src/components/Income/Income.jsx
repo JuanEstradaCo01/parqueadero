@@ -4,17 +4,22 @@ import Button from "react-bootstrap/Button";
 import { useState, useContext } from "react";
 import { parkingContext } from "../../context/context";
 
+//Componente que permite registrar el ingreso de un vehículo al parqueadero
 function Income() {
+  //Variables
   const [typeVehicle, setTypeVehicle] = useState("");
   const [plate, setPlate] = useState("");
+  //Context
   const { typeVehicles, vehicles, addVehicle } = useContext(parkingContext);
 
+  //Funcion que registra el ingreso de un vehículo al parqueadero
   const incomeVehicle = async (evt) => {
     evt.preventDefault();
 
     document.getElementById("formIncome").reset();
     setPlate("");
 
+    //Validacion de campos vacios
     if (typeVehicle === "" || plate === "") {
       alert("Completa todos los campos");
       return;
@@ -31,6 +36,7 @@ function Income() {
         time: new Date().getTime(),
       };
 
+      //Verificacion del tipo de vehículo seleccionado para asignar el valor de la hora correspondiente
       if (type) {
         if (type.name === "carro") {
           data.idTypeVehicle = type.idTypeVehicle;
@@ -62,7 +68,8 @@ function Income() {
         return;
       }
 
-      addVehicle(data);
+      addVehicle(data)
+      alert("¡Vehículo ingresado exitosamente!")
     }
   };
 

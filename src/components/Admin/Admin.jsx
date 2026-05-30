@@ -5,6 +5,7 @@ import editar from "../../assets/editar.png";
 import eliminar from "../../assets/eliminar.png";
 import { Link } from "react-router-dom";
 
+//Componente que solo se muestra al administrador
 function Admin() {
   return (
     <>

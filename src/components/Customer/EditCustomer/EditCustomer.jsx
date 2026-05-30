@@ -4,12 +4,14 @@ import { useState, useContext } from "react";
 import { parkingContext } from "../../../context/context.jsx";
 import Navbarnav from "../../Nav/Navbarnav.jsx";
 
+//Componente que permite editar un cliente desde el administrador
 function EditCustomer() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { customers, editCustomerId } = useContext(parkingContext);
   const customer = customers.find((item) => item.idCustomer === parseInt(id));
 
+  //Variables
   const [customerName, setCustomerName] = useState("");
   const [priceMonthly, setPriceMonthly] = useState("");
   const [customerPlate, setCustomerPlate] = useState("");
@@ -18,11 +20,13 @@ function EditCustomer() {
   const [ownerCard, setOwnerCard] = useState("");
   const [identification, setIdentification] = useState("");
 
+  //Funcion que edita un cliente por su id
   const editCustomer = async (evt) => {
     evt.preventDefault();
 
     document.getElementById("form-container").reset();
 
+    //Formateo del objeto cliente a editar
     let data = {
       idCustomer: customer.idCustomer,
       plate: customerPlate || customer.plate,

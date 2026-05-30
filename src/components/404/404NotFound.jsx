@@ -1,6 +1,7 @@
 import "./404NotFound.css";
 import { Link } from "react-router-dom";    
 
+//Pagina de error 404, se muestra cuando el usuario intenta acceder a una ruta que no existe en la aplicación.
 function NotFoundPage() {
   return (
     <>

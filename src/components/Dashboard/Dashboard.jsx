@@ -1,6 +1,7 @@
 import "./dashboard.css";
 import Navbarnav from "../Nav/Navbarnav";
 
+//Componente que se muestra al iniciar sesion, es el panel principal del parqueadero
 function Dashboard() {
   return (
     <>

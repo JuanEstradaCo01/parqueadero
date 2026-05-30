@@ -17,6 +17,7 @@ import EditUserId from './components/Admin/EditUser/EditUserId/EditUserId.jsx';
 import EditCustomer from './components/Customer/EditCustomer/EditCustomer.jsx';
 import NotFoundPage from './components/404/404NotFound.jsx';
 
+//Componente principal de la aplicación, donde se definen las rutas con sus componentes
 function App() {
 
   return (

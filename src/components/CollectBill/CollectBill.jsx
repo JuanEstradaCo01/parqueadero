@@ -5,6 +5,7 @@ import { useState, useContext } from "react";
 import { parkingContext } from "../../context/context";
 import jsPDF from "jspdf";
 
+//Componente que permite realizar la facturacion de un vehiculo, generando un pdf con los datos de la factura
 function CollectBill() {
   const { vehicles, deleteVehicle, addBill } = useContext(parkingContext);
 
@@ -25,6 +26,7 @@ function CollectBill() {
 
   const [plate, setPlate] = useState("");
 
+  //Funcion que captura toda la informacion del vehiculo a facturar.
   const capturingPlate = async (evt) => {
     evt.preventDefault();
 
@@ -61,6 +63,7 @@ function CollectBill() {
     }
   };
 
+  //Funcion que genera la factura del vehiculo.
   const bill = async (evt) => {
     evt.preventDefault();
 
@@ -78,7 +81,7 @@ function CollectBill() {
     const finalBillData = {
       ...data,
       ...billData,
-      plate
+      plate,
     };
 
     const totalBill =
@@ -87,13 +90,14 @@ function CollectBill() {
       billData.valorPulida +
       billData.valorEncerada +
       billData.valorPolichada +
-      billData.valorTratamientoColor
+      billData.valorTratamientoColor;
 
     deleteVehicle(plate);
     addBill(finalBillData);
     generatePdf(totalBill);
   };
 
+  //Funcion que genera un pdf con los datos de la factura, utilizando la libreria jsPDF
   function generatePdf(totalBill) {
     const date = new Date().toLocaleDateString();
 
@@ -114,7 +118,9 @@ function CollectBill() {
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(8);
     pdf.text(`Fecha:`, margin, y);
-    pdf.text(`${date} ${new Date().toLocaleTimeString()}`, W - margin, y, { align: "right" });
+    pdf.text(`${date} ${new Date().toLocaleTimeString()}`, W - margin, y, {
+      align: "right",
+    });
 
     y += 5;
     pdf.text(`Placa:`, margin, y);
@@ -142,9 +148,11 @@ function CollectBill() {
     y += 5;
     pdf.setFont("helvetica", "normal");
     items.forEach(([label, value]) => {
-      pdf.text(label, margin, y);
-      pdf.text(value, W - margin, y, { align: "right" });
-      y += 5;
+      if (value !== "$0") {
+        pdf.text(label, margin, y);
+        pdf.text(value, W - margin, y, { align: "right" });
+        y += 5;
+      }
     });
 
     pdf.setLineDashPattern([1, 1], 0);
@@ -176,7 +184,7 @@ function CollectBill() {
           <label htmlFor="placa">Placa</label>
           <input
             onChange={(e) => {
-              setPlate(e.target.value.toUpperCase())
+              setPlate(e.target.value.toUpperCase());
             }}
             placeholder="Placa del vehículo"
             name="placa"

@@ -3,9 +3,11 @@ import Navbarnav from "../../Nav/Navbarnav";
 import { useState, useContext } from "react";
 import { parkingContext } from "../../..//context/context";
 
+//Componente que permite eliminar un usuario desde el administrador
 function DeleteUser() {
   const { users, deleteUser } = useContext(parkingContext);
 
+  //Funcion que elimina un usuario por su id
   function deleteUserId(id) {
     deleteUser(id);
     alert("¡Usuario eliminado exitosamente!")

@@ -5,23 +5,27 @@ import { useState, useContext } from "react";
 import { parkingContext } from "../../../../context/context";
 import { useNavigate } from "react-router-dom";
 
+//Componente que permite editar un usuario desde el administrador, recibiendo el id del usuario a editar por la url
 function EditUserId() {
   const navigate = useNavigate();
   const { id } = useParams();
   const { users, editUserId } = useContext(parkingContext);
   const user = users.find((u) => u.idCajero === parseInt(id));
 
+  //variables
   const [username, setUserName] = useState("");
   const [phone, setPhone] = useState("");
   const [identificacion, setIdentificacion] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //Funcion que edita un usuario por su id
   const editUser = async (evt) => {
     evt.preventDefault();
 
     document.getElementById("form-container").reset();
 
+    //Formateo del objeto usuario a editar, actualizando solo los campos que se hayan modificado
     const updatedUser = {
       idCajero: user.idCajero,
       username: username || user.username,

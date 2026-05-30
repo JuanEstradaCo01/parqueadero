@@ -4,13 +4,16 @@ import Navbarnav from "../Nav/Navbarnav";
 import "./login.css";
 import { parkingContext } from "../../context/context.jsx";
 
+//Componente que permite iniciar sesión a los usuarios del sistema
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  //Context
   const { users, vehicles , loadVehicles , loadUsers, loadCustomers, addSession } = useContext(parkingContext);
 
+  //Funcion que maneja el inicio de sesión de los usuarios
   const signIn = async (evt) => {
     evt.preventDefault();
 
@@ -32,6 +35,7 @@ function Login() {
     const objectCustomers = JSON.parse(contentCustomers)
     loadCustomers(objectCustomers)
 
+    //Validacion de campos vacios
     if (username === "" || password === "") {
       alert("Completa todos los campos");
       return;

@@ -5,6 +5,7 @@ import { parkingContext } from "../../../context/context.jsx";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 
+//Componente que permite agregar un usuario desde el administrador
 function AddUser() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ function AddUser() {
   const register = async (evt) => {
     evt.preventDefault();
 
+    //Validacio de campos vacios
     if (
       username === "" ||
       password === "" ||
@@ -30,6 +32,7 @@ function AddUser() {
 
     document.getElementById("registro-form").reset();
 
+    //Formateo del objeto usuario a agregar
     const user = {
       idCajero: users.length + 1,
       identificacion: id,

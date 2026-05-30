@@ -9,10 +9,13 @@ import { FaUserAlt } from "react-icons/fa";
 import { useContext } from "react";
 import { parkingContext } from "../../context/context";
 
+//Componente que muestra la barra de navegación del sistema
 function Navbarnav() {
 
+    //Context, array donde se almacena el objeto del usuario que ha iniciado sesión
     const { session, logOut } = useContext(parkingContext);
 
+    //Funcion que maneja el cierre de sesión de los usuarios
     function logOutUser(){
       logOut();
     }
