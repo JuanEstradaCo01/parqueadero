@@ -27,7 +27,7 @@ function Customers() {
     document.getElementById("formCustomer").reset();
 
     //Validacion de campos vacios
-    if (customerName === "") {
+    if (customerPlate === "" || typeVehicle === "" || contract === ""  || ownerCard === "" || identification === "" || customerName === "" || priceMonthly === "" ) {
       alert("Completa todos los campos");
       return;
     }

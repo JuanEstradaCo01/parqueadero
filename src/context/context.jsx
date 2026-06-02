@@ -380,7 +380,7 @@ function ParkingProvider(props) {
     URL.revokeObjectURL(url);
   }
 
-  //Exportacuion del contexto, donde se pasan las variables y funciones que se van a utilizar en los componentes hijos del proveedor
+  //Exportacion del contexto, donde se pasan las variables y funciones que se van a utilizar en los componentes hijos del proveedor
   return (
     <Provider
       value={{
